@@ -23,9 +23,25 @@ if (!MONGO_URI) {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-  origin: process.env.CLIENT_URL?.split(',').map(s => s.trim()) || ['http://localhost:5173','http://localhost:3000'],
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like Postman, curl)
+    if (!origin) return callback(null, true);
+
+    // Allow localhost during development
+    if (origin.includes("localhost")) return callback(null, true);
+
+    // Allow your production Vercel domain
+    if (origin === "https://todo-app-mu-green.vercel.app") return callback(null, true);
+
+    // Allow all Vercel preview deployments
+    if (/^https:\/\/todo-.*\.vercel\.app$/.test(origin)) return callback(null, true);
+
+    // Otherwise block it
+    return callback(new Error("Not allowed by CORS"));
+  },
   credentials: true,
 }));
+
 
 
 mongoose.connect(MONGO_URI)
