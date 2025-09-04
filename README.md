@@ -1,4 +1,7 @@
 # MERN Todo App
+<img width="1918" height="912" alt="PROJECT_IMG_3" src="https://github.com/user-attachments/assets/0840e3e7-acdf-4716-bf76-e254cd06c723" />
+
+
 
 A full-stack Todo application built using **MongoDB, Express.js, React, and Node.js (MERN)**.  
 The app allows users to register, log in, and manage their tasks efficiently with features like note creation, editing, deletion, tagging, and search.
